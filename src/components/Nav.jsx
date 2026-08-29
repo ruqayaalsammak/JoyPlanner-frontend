@@ -1,40 +1,22 @@
-import { Link } from "react-router"
-
+import { Link } from 'react-router'
 
 const Nav = (props) => {
-
-    const handleSignOut = () => {
-        localStorage.removeItem('token')
-        props.setUser(null)
-    }
-
     return (
         <nav>
-            <Link className="nav-brand" to="/">App Name</Link>
-            { props.user ? (
-                <ul>
-                    <li>Welcome, {props.user.username}!</li>
-                    <li>
-                        <Link to="/">Dashboard</Link>
-                    </li>
-                    <li>
-                        <Link to="/" onClick={handleSignOut}>Sign Out</Link>
-                    </li>
-                </ul>
-            ) : (
+            <Link className='nav-brand' to="/">The Joy Planner</Link>
+            {props.user ? (
             <ul>
-                <li>
-                    <Link to='/'>Home</Link>
-                </li>
-                <li>
-                    <Link to='/sign-up'>Sign Up</Link>
-                </li>
-                <li>
-                    <Link to='/sign-in'>Sign In</Link>
-                </li>
+                <li>Welcome, {props.user.username}!</li>
+                <li><Link to='/events'>Events</Link></li>
+                <li><Link to='/' onClick={props.handleSignOut}>SIGN OUT</Link></li>
             </ul>
-            ) }
-
+            ):(
+            <ul>
+                <li><Link to='/'>HOME</Link></li>
+                <li><Link to='/sign-up'>SIGN UP</Link></li>
+                <li><Link to='/sign-in'>SIGN IN</Link></li>
+            </ul>
+        )}   
         </nav>
     )
 }

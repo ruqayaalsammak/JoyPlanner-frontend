@@ -8,6 +8,7 @@ const Nav = (props) => {
             <ul>
                 <li>Welcome, {props.user.username}!</li>
                 <li><Link to='/events'>Events</Link></li>
+                <li><Link to='/events/new'>NEW EVENT</Link></li>
                 <li><Link to='/' onClick={props.handleSignOut}>SIGN OUT</Link></li>
             </ul>
             ):(

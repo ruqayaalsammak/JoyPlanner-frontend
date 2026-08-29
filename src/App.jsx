@@ -8,6 +8,7 @@ import Dashboard from "./pages/Dashboard"
 import { useState, useEffect } from "react"
 import EventList from "./pages/EventList"
 import * as eventService from './services/eventService'
+import EventDetails from "./pages/EventDetails"
 
 const App = () => {
   const [user, setUser] = useState(null)

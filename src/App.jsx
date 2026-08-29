@@ -1,7 +1,7 @@
 import Nav from "./components/Nav"
 import SignUpForm from "./pages/SignUpForm"
 import './App.css'
-import { Routes, Route } from "react-router"
+import { Routes, Route, useNavigate } from "react-router"
 import SignInForm from "./pages/SignInForm"
 import Landing from "./pages/Landing"
 import Dashboard from "./pages/Dashboard"
@@ -9,10 +9,12 @@ import { useState, useEffect } from "react"
 import EventList from "./pages/EventList"
 import * as eventService from './services/eventService'
 import EventDetails from "./pages/EventDetails"
+import EventForm from "./pages/EventForm"
 
 const App = () => {
   const [user, setUser] = useState(null)
   const [events, setEvents] = useState([])
+  const navigate = useNavigate()
 
   useEffect(() => {
     const fetchAllEvents =  async () => {
@@ -21,6 +23,12 @@ const App = () => {
     }
     if (user) fetchAllEvents()
   }, [user])
+
+  const handleAddEvent = async (formData) => {
+    const newEvent = await eventService.create(formData)
+    setEvents([newEvent, ...events])
+    navigate('/events')
+  }
 
   return (
     <div>
@@ -31,6 +39,8 @@ const App = () => {
           {user ? (
             <>
             <Route path='/events' element={<EventList events={events} />} />
+            <Route path='/events/new' element={<EventForm handleAddEvent={handleAddEvent} />} />
+            <Route path='/events/:eventId' element={<EventDetails />} />
             </>
           ):(
             <>

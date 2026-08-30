@@ -36,19 +36,23 @@ const EventDetails = () => {
                 <span>{new Date(event.date).toLocaleDateString()}</span>
              </p>
              {props.user && event.user?._id === props.user._id && (
-                <>
+                <div className="actions">
+                <button onClick={() => navigate(`/events/${eventId}/edit`)}>Edit</button>
                 <button onClick={() => props.handleDeleteEvent(eventId)}>Delete</button>
-                </>
+                </div>
              )}
+
             </header>
             <p className="event-text">
                 <strong>Scheduled Time:</strong> {event.time}
             </p>
+
             <footer className="event-footer">
                 <section>
                     <h2>Tasks</h2>
                     <TaskForm handleAddTask={handleAddTask} />
                     {(!event.tasks || !event.tasks.length) && <p>There are no tasks assigned.</p>}
+                    
                     {event.tasks?.map((task) => (
                         <article key={task._id}>
                             <header>

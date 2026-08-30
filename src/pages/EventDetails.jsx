@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import { useParams  } from "react-router";
 import * as eventService from '../services/eventService'
+import * as taskService from '../services/taskService'
+import TaskForm from "../components/TaskForm";
+
 
 const EventDetails = () => {
     const { eventId } = useParams()
@@ -12,6 +15,11 @@ const EventDetails = () => {
         }
         fetchEvent()
     }, [eventId])
+
+    const handleAddTask = async (formData) => {
+        const newTask = await taskService.create(eventId, formData)
+        setEvent({ ...event, tasks: [...event.tasks, newTask] })
+    }
 
     if (!event) return <main>Loading...</main>
 

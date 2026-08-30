@@ -38,6 +38,11 @@ const App = () => {
     navigate('/events')
   }
 
+  const handleDeleteEvent = async (eventId) => {
+    const deletedEvent = await eventService.deleteEvent(eventId)
+    setEvents(events.filter((event) => event._Id !== eventId))
+    navigate('/events')
+  }
   return (
     <div>
       <Nav user={user} setUser={setUser} />
@@ -48,7 +53,7 @@ const App = () => {
             <>
             <Route path='/events' element={<EventList events={events} />} />
             <Route path='/events/new' element={<EventForm handleAddEvent={handleAddEvent} />} />
-            <Route path='/events/:eventId' element={<EventDetails />} />
+            <Route path='/events/:eventId' element={<EventDetails user={user} handleDeleteEvent={handleDeleteEvent}/>} />
             </>
           ):(
             <>

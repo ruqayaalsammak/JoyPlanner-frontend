@@ -38,7 +38,7 @@ const create = async (eventFormData) => {
     }
 }
 
-const deeleteEvent = async (eventId) => {
+const deleteEvent = async (eventId) => {
     try {
         const res = await fetch(`${BASE_URL}/${eventId}`,{
             method: 'DELETE',
@@ -55,5 +55,5 @@ export {
     index,
     show,
     create,
-    deeleteEvent,
+    deleteEvent,
 }

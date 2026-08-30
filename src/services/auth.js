@@ -26,6 +26,7 @@ const signUp = async (formData) => {
 }
 
 const signIn = async (formData) => {
+    // console.log('sigining in')
     try {
         const res = await fetch(`${BASE_URL}/auth/sign-in`, {
             method: 'POST',
@@ -33,7 +34,7 @@ const signIn = async (formData) => {
             body: JSON.stringify(formData)
         })
         const data = await res.json()
-
+        console.log(data)
         if (data.err) {
             console.log(data.err)
             throw new Error(data.err)

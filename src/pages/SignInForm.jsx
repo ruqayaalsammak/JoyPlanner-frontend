@@ -20,6 +20,7 @@ const SignInForm = (props) => {
 
     const handleSubmit = async (event) => {
         event.preventDefault()
+        // console.log('in the sign in form submit')
         try {
             const signedInUser = await signIn(formData)
             props.setUser(signedInUser)

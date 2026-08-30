@@ -11,8 +11,16 @@ import * as eventService from './services/eventService'
 import EventDetails from "./pages/EventDetails"
 import EventForm from "./pages/EventForm"
 
+const getUserFromToken = () => {
+  const token = localStorage.getItem('token')
+
+  if (!token) return null
+
+  return JSON.parse(atob(token.split('.')[1])).payload
+}
+
 const App = () => {
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState(getUserFromToken())
   const [events, setEvents] = useState([])
   const navigate = useNavigate()
 
@@ -35,7 +43,7 @@ const App = () => {
       <Nav user={user} setUser={setUser} />
       <main className="app-main">
         <Routes>
-          <Route path='/' element={user ? <Dashboard user={user} /> : <Landing />} />
+          <Route path='/' element={<Landing />} />
           {user ? (
             <>
             <Route path='/events' element={<EventList events={events} />} />

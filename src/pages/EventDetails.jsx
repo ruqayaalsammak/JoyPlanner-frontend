@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams  } from "react-router";
+import { useParams, useNavigate } from "react-router";
 import * as eventService from '../services/eventService'
 import * as taskService from '../services/taskService'
 import TaskForm from "../components/TaskForm";
@@ -7,6 +7,7 @@ import TaskForm from "../components/TaskForm";
 
 const EventDetails = () => {
     const { eventId } = useParams()
+    const navigate = useNavigate()
     const [event, setEvent] = useState(null)
 
     useEffect (() => {
@@ -41,8 +42,8 @@ const EventDetails = () => {
                 <button onClick={() => props.handleDeleteEvent(eventId)}>Delete</button>
                 </div>
              )}
-
             </header>
+            
             <p className="event-text">
                 <strong>Scheduled Time:</strong> {event.time}
             </p>
@@ -52,7 +53,7 @@ const EventDetails = () => {
                     <h2>Tasks</h2>
                     <TaskForm handleAddTask={handleAddTask} />
                     {(!event.tasks || !event.tasks.length) && <p>There are no tasks assigned.</p>}
-                    
+
                     {event.tasks?.map((task) => (
                         <article key={task._id}>
                             <header>

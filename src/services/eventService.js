@@ -51,9 +51,26 @@ const deleteEvent = async (eventId) => {
         console.log(error) 
     }
 }
+
+const update = async (eventId, eventFormData) => {
+    try {
+        const res = await fetch(`${BASE_URL}/${eventId}`,{
+            method: 'PUT',
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`, 
+                'Content-Type': 'application/json',
+            },
+        })
+        return res.json()
+    } catch (error) {
+        console.log(error) 
+    }
+}
+
 export {
     index,
     show,
     create,
     deleteEvent,
+    update,
 }

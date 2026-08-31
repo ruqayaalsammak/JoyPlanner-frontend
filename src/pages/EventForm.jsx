@@ -1,6 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect} from "react";
+import { useParams } from "react-router";
+import * as eventService from '../services/eventService'
 
 const EventForm = (props) => {
+    const { eventId } = useParams()
     const initialState = {
         eventName: '',
         package: 'Bronze',
@@ -10,16 +13,31 @@ const EventForm = (props) => {
 
     const [formDate, setFormData] = useState(initialState)
 
+    useEffect(() => {
+        const fetchEvent = async () => {
+            const eventData = await eventService.show(eventId)
+            setFormData(eventData)
+        }
+        if (eventId) fetchEvent()
+        return () => setFormData(initialState)
+    }, [eventId])
+
+
     const handleChange = (evt) => {
         setFormData({ ...formData, [evt.target.name]: evt.target.value })
     }
 
     const handleSubmit = (evt) => {
         evt.preventDefault()
+        if (eventId) {
         props.handleAddEvent(formData)
+        } else {
+            props.handleAddEvent(formData)
+        }
     }
     return (
         <main className="card">
+            <h1>{eventId ? 'Edit Event' : 'New Event'}</h1>
             <form onSubmit={handleSubmit}>
                 <label htmlFor="eventName-input">Event Name</label>
                 <input
